@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light"><head>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1240">
-<title>CS Habit Consistency Tracker — v19</title>
+<title>CS Habit Consistency Tracker — v23</title>
 <style>
   :root {
     --bg: #f8fafc;
@@ -264,7 +265,7 @@
     left: 0;
     background: var(--card);
     z-index: 2;
-    min-width: 245px;
+    min-width: 265px;
     border-right: 1px solid var(--border);
   }
 
@@ -362,7 +363,21 @@
   .rate-mid { background: var(--warning-bg); color: var(--warning); }
   .rate-low { background: var(--card-alt); color: var(--muted); }
 
-  /* Charts Section at Bottom */
+  /* Exercise Split Routine Formatting */
+  .ex-title {
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .ex-sub {
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+
+  /* Charts Section */
   .charts-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -505,9 +520,9 @@
     <div class="controls">
       <div class="clock-box">
         <span class="pulse-dot"></span>
-        <span id="liveClock">Fri, 20 Nov, 07:51:45 pm</span>
+        <span id="liveClock">Syncing local time...</span>
       </div>
-      <button class="save-btn" id="saveNowBtn" onclick="forceSave()">Saved ✓</button>
+      <button class="save-btn" id="saveNowBtn" onclick="forceSave()">Save Now</button>
       <button onclick="toggleTheme()" id="themeBtn">Dark Mode</button>
       <button class="primary-btn" onclick="exportUpdatedHTML()">Download HTML</button>
       <button onclick="resetData()">Reset</button>
@@ -515,28 +530,7 @@
   </div>
 
   <!-- KPI Cards -->
-  <div class="kpi-grid" id="kpiGrid">
-      <div class="kpi-card">
-        <div class="kpi-label">Today's Progress (Daily Anchors)</div>
-        <div class="kpi-value">4 / 12</div>
-        <div class="kpi-sub">Nov 20 valid Daily Anchors</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Overall Consistency</div>
-        <div class="kpi-value">33%</div>
-        <div class="kpi-sub">54 of 162 valid boxes</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">10K+ Steps Consistency</div>
-        <div class="kpi-value">12 / 14 Days</div>
-        <div class="kpi-sub">Strongest daily movement anchor</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Vitamin D (Weekly)</div>
-        <div class="kpi-value">Done This Week</div>
-        <div class="kpi-sub">Remaining week boxes grey out once done</div>
-      </div>
-    </div>
+  <div class="kpi-grid" id="kpiGrid"></div>
 
   <!-- Main Habit Matrix -->
   <div class="card">
@@ -551,585 +545,9 @@
     <div class="table-scroll">
       <table>
         <thead>
-          <tr id="tableHead"><th>Habit / Step</th><th class="today-col">Fri (Today)</th><th class="">Thu, Nov 19</th><th class="">Wed, Nov 18</th><th class="">Tue, Nov 17</th><th class="">Mon, Nov 16</th><th class="">Sun, Nov 15</th><th class="">Sat, Nov 14</th><th class="">Fri, Nov 13</th><th class="">Thu, Nov 12</th><th class="">Wed, Nov 11</th><th class="">Tue, Nov 10</th><th class="">Mon, Nov 9</th><th class="">Fri, Nov 6</th><th class="">Thu, Nov 5</th><th>Rate</th></tr>
+          <tr id="tableHead"></tr>
         </thead>
-        <tbody id="tableBody"><tr class="pillar-row"><td colspan="16">Daily Anchors</td></tr><tr>
-        <td>5:30AM</td>
-        <td class="today-col">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-20', 'h0')" title="Click to toggle">⬜</button>
-        </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td>
-        <td><span class="habit-rate-pill rate-low">0%</span></td>
-      </tr><tr>
-        <td>Yoga (Shambhavi)</td>
-        <td class="today-col">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-20', 'h1')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-19', 'h1')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-18', 'h1')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-17', 'h1')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-16', 'h1')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-15', 'h1')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-14', 'h1')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-13', 'h1')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-12', 'h1')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-11', 'h1')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-10', 'h1')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-09', 'h1')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-06', 'h1')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-05', 'h1')" title="Click to toggle">⬜</button>
-        </td>
-        <td><span class="habit-rate-pill rate-low">7%</span></td>
-      </tr><tr>
-        <td>Gayathri</td>
-        <td class="today-col">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-20', 'h2')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-19', 'h2')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-18', 'h2')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-17', 'h2')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-16', 'h2')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-15', 'h2')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-14', 'h2')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-13', 'h2')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-12', 'h2')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-11', 'h2')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-10', 'h2')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-09', 'h2')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-06', 'h2')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-05', 'h2')" title="Click to toggle">⬜</button>
-        </td>
-        <td><span class="habit-rate-pill rate-low">21%</span></td>
-      </tr><tr>
-        <td>Help School prep</td>
-        <td class="today-col">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-20', 'h3')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-19', 'h3')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-18', 'h3')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-17', 'h3')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-16', 'h3')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn na" onclick="toggleCell('2026-11-15', 'h3')" title="Click to toggle">—</button>
-        </td><td class="">
-          <button class="toggle-btn na" onclick="toggleCell('2026-11-14', 'h3')" title="Click to toggle">—</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-13', 'h3')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-12', 'h3')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-11', 'h3')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-10', 'h3')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-09', 'h3')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-06', 'h3')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-05', 'h3')" title="Click to toggle">⬜</button>
-        </td>
-        <td><span class="habit-rate-pill rate-mid">42%</span></td>
-      </tr><tr>
-        <td>Morning Walk (Sun)</td>
-        <td class="today-col">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-20', 'h4')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-19', 'h4')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-18', 'h4')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-17', 'h4')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-16', 'h4')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-15', 'h4')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-14', 'h4')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-13', 'h4')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-12', 'h4')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-11', 'h4')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-10', 'h4')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-09', 'h4')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-06', 'h4')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-05', 'h4')" title="Click to toggle">⬜</button>
-        </td>
-        <td><span class="habit-rate-pill rate-low">14%</span></td>
-      </tr><tr>
-        <td>Gym</td>
-        <td class="today-col">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-20', 'h5')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-19', 'h5')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-18', 'h5')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-17', 'h5')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-16', 'h5')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-15', 'h5')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-14', 'h5')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-13', 'h5')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-12', 'h5')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-11', 'h5')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-10', 'h5')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-09', 'h5')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-06', 'h5')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-05', 'h5')" title="Click to toggle">✅</button>
-        </td>
-        <td><span class="habit-rate-pill rate-low">29%</span></td>
-      </tr><tr>
-        <td>Protein</td>
-        <td class="today-col">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-20', 'h6')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-19', 'h6')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-18', 'h6')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-17', 'h6')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-16', 'h6')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-15', 'h6')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-14', 'h6')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-13', 'h6')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-12', 'h6')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-11', 'h6')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-10', 'h6')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-09', 'h6')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-06', 'h6')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-05', 'h6')" title="Click to toggle">✅</button>
-        </td>
-        <td><span class="habit-rate-pill rate-mid">43%</span></td>
-      </tr><tr>
-        <td>10K+ steps</td>
-        <td class="today-col">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-20', 'h7')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-19', 'h7')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-18', 'h7')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-17', 'h7')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-16', 'h7')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-15', 'h7')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-14', 'h7')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-13', 'h7')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-12', 'h7')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-11', 'h7')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-10', 'h7')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-09', 'h7')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-06', 'h7')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-05', 'h7')" title="Click to toggle">✅</button>
-        </td>
-        <td><span class="habit-rate-pill rate-high">86%</span></td>
-      </tr><tr>
-        <td>Son play study</td>
-        <td class="today-col">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-20', 'h8')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-19', 'h8')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-18', 'h8')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-17', 'h8')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-16', 'h8')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-15', 'h8')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-14', 'h8')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-13', 'h8')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-12', 'h8')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-11', 'h8')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-10', 'h8')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-09', 'h8')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-06', 'h8')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-05', 'h8')" title="Click to toggle">✅</button>
-        </td>
-        <td><span class="habit-rate-pill rate-mid">50%</span></td>
-      </tr><tr>
-        <td>Chia seeds</td>
-        <td class="today-col">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-20', 'h9')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-19', 'h9')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-18', 'h9')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-17', 'h9')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-16', 'h9')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-15', 'h9')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-14', 'h9')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-13', 'h9')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-12', 'h9')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-11', 'h9')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-10', 'h9')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-09', 'h9')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-06', 'h9')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-05', 'h9')" title="Click to toggle">⬜</button>
-        </td>
-        <td><span class="habit-rate-pill rate-low">29%</span></td>
-      </tr><tr>
-        <td>Early Dinner walk</td>
-        <td class="today-col">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-20', 'h10')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-19', 'h10')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-18', 'h10')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-17', 'h10')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-16', 'h10')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-15', 'h10')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-14', 'h10')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-13', 'h10')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-12', 'h10')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-11', 'h10')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-10', 'h10')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-09', 'h10')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-06', 'h10')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-05', 'h10')" title="Click to toggle">✅</button>
-        </td>
-        <td><span class="habit-rate-pill rate-mid">50%</span></td>
-      </tr><tr>
-        <td>Bedroom NO mobile</td>
-        <td class="today-col">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-20', 'h11')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-19', 'h11')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-18', 'h11')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-17', 'h11')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-16', 'h11')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-15', 'h11')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-14', 'h11')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-13', 'h11')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-12', 'h11')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-11', 'h11')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-10', 'h11')" title="Click to toggle">✅</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-09', 'h11')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-06', 'h11')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-05', 'h11')" title="Click to toggle">⬜</button>
-        </td>
-        <td><span class="habit-rate-pill rate-low">7%</span></td>
-      </tr><tr class="pillar-row"><td colspan="16">Longevity Rituals</td></tr><tr>
-        <td>Vitamin D (weekly)</td>
-        <td class="today-col">
-            <button class="toggle-btn locked" disabled="" title="Already completed for this week">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Already completed for this week">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Already completed for this week">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Already completed for this week">—</button>
-          </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-16', 'h12')" title="Click to toggle">✅</button>
-        </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Already completed for this week">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Already completed for this week">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Already completed for this week">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Already completed for this week">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Already completed for this week">—</button>
-          </td><td class="">
-          <button class="toggle-btn done" onclick="toggleCell('2026-11-10', 'h12')" title="Click to toggle">✅</button>
-        </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Already completed for this week">—</button>
-          </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-06', 'h12')" title="Click to toggle">⬜</button>
-        </td><td class="">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-05', 'h12')" title="Click to toggle">⬜</button>
-        </td>
-        <td><span class="habit-rate-pill rate-mid">50%</span></td>
-      </tr><tr>
-        <td>Oil Massage (monthly)</td>
-        <td class="today-col">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-20', 'h13')" title="Click to toggle">⬜</button>
-        </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td>
-        <td><span class="habit-rate-pill rate-low">0%</span></td>
-      </tr><tr>
-        <td>Research &amp; stay relevant</td>
-        <td class="today-col">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-20', 'h14')" title="Click to toggle">⬜</button>
-        </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td>
-        <td><span class="habit-rate-pill rate-low">0%</span></td>
-      </tr><tr class="pillar-row"><td colspan="16">Inner Compass</td></tr><tr>
-        <td>Gratitude &amp; Appreciation</td>
-        <td class="today-col">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-20', 'h15')" title="Click to toggle">⬜</button>
-        </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td>
-        <td><span class="habit-rate-pill rate-low">0%</span></td>
-      </tr><tr>
-        <td>Humility &amp; Forgiveness</td>
-        <td class="today-col">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-20', 'h16')" title="Click to toggle">⬜</button>
-        </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td>
-        <td><span class="habit-rate-pill rate-low">0%</span></td>
-      </tr><tr>
-        <td>Helping Beyond</td>
-        <td class="today-col">
-          <button class="toggle-btn " onclick="toggleCell('2026-11-20', 'h17')" title="Click to toggle">⬜</button>
-        </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td><td class="">
-            <button class="toggle-btn locked" disabled="" title="Starts Nov 20, 2026">—</button>
-          </td>
-        <td><span class="habit-rate-pill rate-low">0%</span></td>
-      </tr></tbody>
+        <tbody id="tableBody"></tbody>
       </table>
     </div>
   </div>
@@ -1139,280 +557,51 @@
     <div class="card chart-card">
       <h3>Daily Anchors Completion Trend</h3>
       <p>Percentage of valid Daily Anchors completed per day</p>
-      <div class="daily-bars" id="dailyChart">
-        <div class="bar-col">
-          <span class="bar-val">45%</span>
-          <div class="bar-track" title="Nov 5: 5/11 Daily Anchors">
-            <div class="bar-fill " style="height: 45%"></div>
-          </div>
-          <span class="bar-label">Nov 5</span>
-        </div>
-      
-        <div class="bar-col">
-          <span class="bar-val">36%</span>
-          <div class="bar-track" title="Nov 6: 4/11 Daily Anchors">
-            <div class="bar-fill " style="height: 36%"></div>
-          </div>
-          <span class="bar-label">Nov 6</span>
-        </div>
-      
-        <div class="bar-col">
-          <span class="bar-val">9%</span>
-          <div class="bar-track" title="Nov 9: 1/11 Daily Anchors">
-            <div class="bar-fill " style="height: 9%"></div>
-          </div>
-          <span class="bar-label">Nov 9</span>
-        </div>
-      
-        <div class="bar-col">
-          <span class="bar-val">55%</span>
-          <div class="bar-track" title="Nov 10: 6/11 Daily Anchors">
-            <div class="bar-fill " style="height: 55%"></div>
-          </div>
-          <span class="bar-label">Nov 10</span>
-        </div>
-      
-        <div class="bar-col">
-          <span class="bar-val">27%</span>
-          <div class="bar-track" title="Nov 11: 3/11 Daily Anchors">
-            <div class="bar-fill " style="height: 27%"></div>
-          </div>
-          <span class="bar-label">Nov 11</span>
-        </div>
-      
-        <div class="bar-col">
-          <span class="bar-val">45%</span>
-          <div class="bar-track" title="Nov 12: 5/11 Daily Anchors">
-            <div class="bar-fill " style="height: 45%"></div>
-          </div>
-          <span class="bar-label">Nov 12</span>
-        </div>
-      
-        <div class="bar-col">
-          <span class="bar-val">9%</span>
-          <div class="bar-track" title="Nov 13: 1/11 Daily Anchors">
-            <div class="bar-fill " style="height: 9%"></div>
-          </div>
-          <span class="bar-label">Nov 13</span>
-        </div>
-      
-        <div class="bar-col">
-          <span class="bar-val">60%</span>
-          <div class="bar-track" title="Nov 14: 6/10 Daily Anchors">
-            <div class="bar-fill " style="height: 60%"></div>
-          </div>
-          <span class="bar-label">Nov 14</span>
-        </div>
-      
-        <div class="bar-col">
-          <span class="bar-val">20%</span>
-          <div class="bar-track" title="Nov 15: 2/10 Daily Anchors">
-            <div class="bar-fill " style="height: 20%"></div>
-          </div>
-          <span class="bar-label">Nov 15</span>
-        </div>
-      
-        <div class="bar-col">
-          <span class="bar-val">9%</span>
-          <div class="bar-track" title="Nov 16: 1/11 Daily Anchors">
-            <div class="bar-fill " style="height: 9%"></div>
-          </div>
-          <span class="bar-label">Nov 16</span>
-        </div>
-      
-        <div class="bar-col">
-          <span class="bar-val">27%</span>
-          <div class="bar-track" title="Nov 17: 3/11 Daily Anchors">
-            <div class="bar-fill " style="height: 27%"></div>
-          </div>
-          <span class="bar-label">Nov 17</span>
-        </div>
-      
-        <div class="bar-col">
-          <span class="bar-val">45%</span>
-          <div class="bar-track" title="Nov 18: 5/11 Daily Anchors">
-            <div class="bar-fill " style="height: 45%"></div>
-          </div>
-          <span class="bar-label">Nov 18</span>
-        </div>
-      
-        <div class="bar-col">
-          <span class="bar-val">55%</span>
-          <div class="bar-track" title="Nov 19: 6/11 Daily Anchors">
-            <div class="bar-fill " style="height: 55%"></div>
-          </div>
-          <span class="bar-label">Nov 19</span>
-        </div>
-      
-        <div class="bar-col">
-          <span class="bar-val">33%</span>
-          <div class="bar-track" title="Nov 20: 4/12 Daily Anchors">
-            <div class="bar-fill today-bar" style="height: 33%"></div>
-          </div>
-          <span class="bar-label">Nov 20</span>
-        </div>
-      </div>
+      <div class="daily-bars" id="dailyChart"></div>
     </div>
 
     <div class="card chart-card">
       <h3>Habit-by-Habit Consistency</h3>
       <p>Completion rate per habit across valid (non-greyed-out) boxes</p>
-      <div class="habit-bars" id="habitChart">
-        <div class="h-row">
-          <div class="h-name" title="5:30AM (0/1 valid)">5:30AM</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 0%"></div>
-          </div>
-          <div class="h-pct">0%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Yoga (Shambhavi) (1/14 valid)">Yoga (Shambhavi)</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 7%"></div>
-          </div>
-          <div class="h-pct">7%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Gayathri (3/14 valid)">Gayathri</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 21%"></div>
-          </div>
-          <div class="h-pct">21%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Help School prep (5/12 valid)">Help School prep</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 42%"></div>
-          </div>
-          <div class="h-pct">42%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Morning Walk (Sun) (2/14 valid)">Morning Walk (Sun)</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 14%"></div>
-          </div>
-          <div class="h-pct">14%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Gym (4/14 valid)">Gym</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 29%"></div>
-          </div>
-          <div class="h-pct">29%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Protein (6/14 valid)">Protein</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 43%"></div>
-          </div>
-          <div class="h-pct">43%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="10K+ steps (12/14 valid)">10K+ steps</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 86%"></div>
-          </div>
-          <div class="h-pct">86%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Son play study (7/14 valid)">Son play study</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 50%"></div>
-          </div>
-          <div class="h-pct">50%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Chia seeds (4/14 valid)">Chia seeds</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 29%"></div>
-          </div>
-          <div class="h-pct">29%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Early Dinner walk (7/14 valid)">Early Dinner walk</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 50%"></div>
-          </div>
-          <div class="h-pct">50%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Bedroom NO mobile (1/14 valid)">Bedroom NO mobile</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 7%"></div>
-          </div>
-          <div class="h-pct">7%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Vitamin D (weekly) (2/4 valid)">Vitamin D (weekly)</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 50%"></div>
-          </div>
-          <div class="h-pct">50%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Oil Massage (monthly) (0/1 valid)">Oil Massage (monthly)</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 0%"></div>
-          </div>
-          <div class="h-pct">0%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Research &amp; stay relevant (0/1 valid)">Research &amp; stay relevant</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 0%"></div>
-          </div>
-          <div class="h-pct">0%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Gratitude &amp; Appreciation (0/1 valid)">Gratitude &amp; Appreciation</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 0%"></div>
-          </div>
-          <div class="h-pct">0%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Humility &amp; Forgiveness (0/1 valid)">Humility &amp; Forgiveness</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 0%"></div>
-          </div>
-          <div class="h-pct">0%</div>
-        </div>
-      
-        <div class="h-row">
-          <div class="h-name" title="Helping Beyond (0/1 valid)">Helping Beyond</div>
-          <div class="h-track">
-            <div class="h-fill" style="width: 0%"></div>
-          </div>
-          <div class="h-pct">0%</div>
+      <div class="habit-bars" id="habitChart"></div>
+    </div>
+  </div>
+
+  <!-- Exercise Routine Split Tracker -->
+  <div class="card">
+    <div class="table-header-row">
+      <div>
+        <h2>Rolling Exercise Split &amp; Recovery Tracker</h2>
+        <div style="font-size:0.82rem; color:var(--muted); margin-top:3px;">
+          6-session rolling split (started Nov 20, 2026) — ticking a workout grey-outs remaining sessions in that week
         </div>
       </div>
+      <div class="legend">
+        <span>✅ Done</span>
+        <span>⬜ Available</span>
+        <span>— Greyed Out (Completed for Week)</span>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr id="exTableHead"></tr>
+        </thead>
+        <tbody id="exTableBody"></tbody>
+      </table>
     </div>
   </div>
 
   <div class="footer-bar">
-    <span>Click any valid box to cycle status (⬜ → ✅ → —). Weekly/monthly habits grey out remaining boxes in the period once done.</span>
-    <span id="saveStatus" style="color: var(--success);">Force-saved &amp; verified locally at 07:51:44 PM</span>
+    <span>Click any valid box to cycle status (⬜ → ✅ → —). Weekly/monthly habits &amp; workouts grey out remaining boxes in the period once ticked.</span>
+    <span id="saveStatus">Ready</span>
   </div>
 </div>
 
 <script>
   const NEW_HABITS_START = "2026-11-20";
+  const FASTING_START = "2026-11-23";
+  const EXERCISE_START = "2026-11-20";
 
   // Cadence: "daily" | "weekly" | "monthly"
   const HABITS = [
@@ -1434,6 +623,7 @@
     { id: "h12", pillar: "Longevity Rituals", name: "Vitamin D (weekly)", isNew: false, cadence: "weekly" },
     { id: "h13", pillar: "Longevity Rituals", name: "Oil Massage (monthly)", isNew: true, cadence: "monthly" },
     { id: "h14", pillar: "Longevity Rituals", name: "Research & stay relevant", isNew: true, cadence: "daily" },
+    { id: "h18", pillar: "Longevity Rituals", name: "Fasting", isNew: true, startDate: FASTING_START, cadence: "daily" },
 
     // Pillar 3: Inner Compass
     { id: "h15", pillar: "Inner Compass", name: "Gratitude & Appreciation", isNew: true, cadence: "daily" },
@@ -1441,308 +631,76 @@
     { id: "h17", pillar: "Inner Compass", name: "Helping Beyond", isNew: true, cadence: "daily" }
   ];
 
-  // Historical baseline through Thu Nov 19, 2026; Fri Nov 20 active
+  // 6-session rolling exercise routine (started Nov 20, 2026)
+  const EXERCISES = [
+    {
+      id: "ex1",
+      title: "Chest 45 min strength",
+      detail: "+ 15 min Incline Treadmill walk",
+      cadence: "weekly"
+    },
+    {
+      id: "ex2",
+      title: "Biceps, Triceps & Forearms",
+      detail: "45 min strength",
+      cadence: "weekly"
+    },
+    {
+      id: "ex3",
+      title: "Recovery",
+      detail: "Normal walking",
+      cadence: "weekly"
+    },
+    {
+      id: "ex4",
+      title: "Legs 45 min strength",
+      detail: "+ 15 min elliptical",
+      cadence: "weekly"
+    },
+    {
+      id: "ex5",
+      title: "Recovery",
+      detail: "Elliptical (30 min) + Abs & Core with stretches (30 min)",
+      cadence: "weekly"
+    },
+    {
+      id: "ex6",
+      title: "Lats (Back) & Shoulders strength",
+      detail: "Strength session",
+      cadence: "weekly"
+    }
+  ];
+
+  // Merged full history from Nov 5 through Mon Nov 23, 2026
+  // Fasting added under Longevity Rituals starting Mon Nov 23, 2026 (prior days greyed out)
   // 0 = ⬜ (valid pending), 1 = ✅ (valid done), 2 = — (greyed out / N/A)
   const DEFAULT_DATA = {
-  "dates": [
-    "2026-11-20",
-    "2026-11-19",
-    "2026-11-18",
-    "2026-11-17",
-    "2026-11-16",
-    "2026-11-15",
-    "2026-11-14",
-    "2026-11-13",
-    "2026-11-12",
-    "2026-11-11",
-    "2026-11-10",
-    "2026-11-09",
-    "2026-11-06",
-    "2026-11-05"
-  ],
-  "records": {
-    "2026-11-18": {
-      "h1": 0,
-      "h2": 0,
-      "h3": 1,
-      "h4": 0,
-      "h5": 1,
-      "h6": 1,
-      "h7": 1,
-      "h8": 0,
-      "h9": 0,
-      "h10": 1,
-      "h11": 0,
-      "h12": 2,
-      "h0": 2,
-      "h13": 2,
-      "h14": 2,
-      "h15": 2,
-      "h16": 2,
-      "h17": 2
-    },
-    "2026-11-17": {
-      "h1": 0,
-      "h2": 0,
-      "h3": 1,
-      "h4": 0,
-      "h5": 0,
-      "h6": 0,
-      "h7": 1,
-      "h8": 0,
-      "h9": 1,
-      "h10": 0,
-      "h11": 0,
-      "h12": 2,
-      "h0": 2,
-      "h13": 2,
-      "h14": 2,
-      "h15": 2,
-      "h16": 2,
-      "h17": 2
-    },
-    "2026-11-16": {
-      "h1": 0,
-      "h2": 0,
-      "h3": 0,
-      "h4": 0,
-      "h5": 0,
-      "h6": 0,
-      "h7": 1,
-      "h8": 0,
-      "h9": 0,
-      "h10": 0,
-      "h11": 0,
-      "h12": 1,
-      "h0": 2,
-      "h13": 2,
-      "h14": 2,
-      "h15": 2,
-      "h16": 2,
-      "h17": 2
-    },
-    "2026-11-15": {
-      "h1": 0,
-      "h2": 0,
-      "h3": 2,
-      "h4": 0,
-      "h5": 0,
-      "h6": 0,
-      "h7": 1,
-      "h8": 1,
-      "h9": 0,
-      "h10": 0,
-      "h11": 0,
-      "h12": 2,
-      "h0": 2,
-      "h13": 2,
-      "h14": 2,
-      "h15": 2,
-      "h16": 2,
-      "h17": 2
-    },
-    "2026-11-14": {
-      "h1": 0,
-      "h2": 1,
-      "h3": 2,
-      "h4": 0,
-      "h5": 1,
-      "h6": 1,
-      "h7": 1,
-      "h8": 0,
-      "h9": 1,
-      "h10": 1,
-      "h11": 0,
-      "h12": 2,
-      "h0": 2,
-      "h13": 2,
-      "h14": 2,
-      "h15": 2,
-      "h16": 2,
-      "h17": 2
-    },
-    "2026-11-13": {
-      "h1": 0,
-      "h2": 0,
-      "h3": 0,
-      "h4": 0,
-      "h5": 0,
-      "h6": 0,
-      "h7": 0,
-      "h8": 0,
-      "h9": 1,
-      "h10": 0,
-      "h11": 0,
-      "h12": 2,
-      "h0": 2,
-      "h13": 2,
-      "h14": 2,
-      "h15": 2,
-      "h16": 2,
-      "h17": 2
-    },
-    "2026-11-12": {
-      "h1": 1,
-      "h2": 0,
-      "h3": 1,
-      "h4": 0,
-      "h5": 0,
-      "h6": 1,
-      "h7": 1,
-      "h8": 1,
-      "h9": 0,
-      "h10": 0,
-      "h11": 0,
-      "h12": 2,
-      "h0": 2,
-      "h13": 2,
-      "h14": 2,
-      "h15": 2,
-      "h16": 2,
-      "h17": 2
-    },
-    "2026-11-11": {
-      "h1": 0,
-      "h2": 0,
-      "h3": 0,
-      "h4": 0,
-      "h5": 0,
-      "h6": 0,
-      "h7": 1,
-      "h8": 1,
-      "h9": 0,
-      "h10": 1,
-      "h11": 0,
-      "h12": 2,
-      "h0": 2,
-      "h13": 2,
-      "h14": 2,
-      "h15": 2,
-      "h16": 2,
-      "h17": 2
-    },
-    "2026-11-10": {
-      "h1": 0,
-      "h2": 1,
-      "h3": 0,
-      "h4": 0,
-      "h5": 1,
-      "h6": 1,
-      "h7": 1,
-      "h8": 0,
-      "h9": 0,
-      "h10": 1,
-      "h11": 1,
-      "h12": 1,
-      "h0": 2,
-      "h13": 2,
-      "h14": 2,
-      "h15": 2,
-      "h16": 2,
-      "h17": 2
-    },
-    "2026-11-09": {
-      "h1": 0,
-      "h2": 1,
-      "h3": 0,
-      "h4": 0,
-      "h5": 0,
-      "h6": 0,
-      "h7": 0,
-      "h8": 0,
-      "h9": 0,
-      "h10": 0,
-      "h11": 0,
-      "h12": 2,
-      "h0": 2,
-      "h13": 2,
-      "h14": 2,
-      "h15": 2,
-      "h16": 2,
-      "h17": 2
-    },
-    "2026-11-06": {
-      "h1": 0,
-      "h2": 0,
-      "h3": 0,
-      "h4": 0,
-      "h5": 0,
-      "h6": 0,
-      "h7": 1,
-      "h8": 1,
-      "h9": 1,
-      "h10": 1,
-      "h11": 0,
-      "h12": 0,
-      "h0": 2,
-      "h13": 2,
-      "h14": 2,
-      "h15": 2,
-      "h16": 2,
-      "h17": 2
-    },
-    "2026-11-05": {
-      "h1": 0,
-      "h2": 0,
-      "h3": 0,
-      "h4": 0,
-      "h5": 1,
-      "h6": 1,
-      "h7": 1,
-      "h8": 1,
-      "h9": 0,
-      "h10": 1,
-      "h11": 0,
-      "h12": 0,
-      "h0": 2,
-      "h13": 2,
-      "h14": 2,
-      "h15": 2,
-      "h16": 2,
-      "h17": 2
-    },
-    "2026-11-20": {
-      "h0": 0,
-      "h1": 0,
-      "h2": 0,
-      "h3": 1,
-      "h4": 1,
-      "h5": 0,
-      "h6": 0,
-      "h7": 1,
-      "h8": 1,
-      "h9": 0,
-      "h10": 0,
-      "h11": 0,
-      "h12": 2,
-      "h13": 0,
-      "h14": 0,
-      "h15": 0,
-      "h16": 0,
-      "h17": 0
-    },
-    "2026-11-19": {
-      "h0": 2,
-      "h1": 0,
-      "h2": 0,
-      "h3": 1,
-      "h4": 1,
-      "h5": 0,
-      "h6": 1,
-      "h7": 1,
-      "h8": 1,
-      "h9": 0,
-      "h10": 1,
-      "h11": 0,
-      "h12": 2,
-      "h13": 2,
-      "h14": 2,
-      "h15": 2,
-      "h16": 2,
-      "h17": 2
+    dates: [
+      "2026-11-23", "2026-11-22", "2026-11-21", "2026-11-20", "2026-11-19",
+      "2026-11-18", "2026-11-17", "2026-11-16", "2026-11-15", "2026-11-14",
+      "2026-11-13", "2026-11-12", "2026-11-11", "2026-11-10", "2026-11-09",
+      "2026-11-06", "2026-11-05"
+    ],
+    records: {
+      "2026-11-23": { h0:0, h1:1, h2:0, h3:0, h4:1, h5:1, h6:0, h7:0, h8:0, h9:0, h10:0, h11:0, h12:0, h13:0, h14:0, h18:0, h15:0, h16:0, h17:0, ex1:0, ex2:1, ex3:0, ex4:0, ex5:0, ex6:0 },
+      "2026-11-22": { h0:0, h1:0, h2:1, h3:2, h4:0, h5:0, h6:0, h7:1, h8:0, h9:0, h10:1, h11:0, h12:2, h13:0, h14:0, h18:2, h15:0, h16:0, h17:0, ex1:2, ex2:0, ex3:0, ex4:0, ex5:0, ex6:0 },
+      "2026-11-21": { h0:0, h1:0, h2:0, h3:2, h4:0, h5:0, h6:0, h7:1, h8:0, h9:0, h10:1, h11:0, h12:2, h13:0, h14:0, h18:2, h15:0, h16:0, h17:0, ex1:2, ex2:0, ex3:0, ex4:0, ex5:0, ex6:0 },
+      "2026-11-20": { h0:0, h1:0, h2:0, h3:1, h4:1, h5:1, h6:1, h7:1, h8:1, h9:0, h10:0, h11:0, h12:2, h13:0, h14:0, h18:2, h15:0, h16:0, h17:0, ex1:1, ex2:0, ex3:0, ex4:0, ex5:0, ex6:0 },
+      "2026-11-19": { h0:2, h1:0, h2:0, h3:1, h4:1, h5:0, h6:1, h7:1, h8:1, h9:0, h10:1, h11:0, h12:2, h13:2, h14:2, h18:2, h15:2, h16:2, h17:2, ex1:2, ex2:2, ex3:2, ex4:2, ex5:2, ex6:2 },
+      "2026-11-18": { h0:2, h1:0, h2:0, h3:1, h4:0, h5:1, h6:1, h7:1, h8:2, h9:0, h10:1, h11:0, h12:2, h13:2, h14:2, h18:2, h15:2, h16:2, h17:2, ex1:2, ex2:2, ex3:2, ex4:2, ex5:2, ex6:2 },
+      "2026-11-17": { h0:2, h1:0, h2:0, h3:1, h4:0, h5:0, h6:0, h7:1, h8:0, h9:1, h10:0, h11:0, h12:2, h13:2, h14:2, h18:2, h15:2, h16:2, h17:2, ex1:2, ex2:2, ex3:2, ex4:2, ex5:2, ex6:2 },
+      "2026-11-16": { h0:2, h1:0, h2:0, h3:0, h4:0, h5:0, h6:0, h7:1, h8:0, h9:0, h10:0, h11:0, h12:1, h13:2, h14:2, h18:2, h15:2, h16:2, h17:2, ex1:2, ex2:2, ex3:2, ex4:2, ex5:2, ex6:2 },
+      "2026-11-15": { h0:2, h1:0, h2:0, h3:2, h4:0, h5:0, h6:0, h7:1, h8:1, h9:0, h10:0, h11:0, h12:2, h13:2, h14:2, h18:2, h15:2, h16:2, h17:2, ex1:2, ex2:2, ex3:2, ex4:2, ex5:2, ex6:2 },
+      "2026-11-14": { h0:2, h1:0, h2:1, h3:2, h4:0, h5:1, h6:1, h7:1, h8:0, h9:1, h10:1, h11:0, h12:2, h13:2, h14:2, h18:2, h15:2, h16:2, h17:2, ex1:2, ex2:2, ex3:2, ex4:2, ex5:2, ex6:2 },
+      "2026-11-13": { h0:2, h1:0, h2:0, h3:0, h4:0, h5:0, h6:0, h7:0, h8:0, h9:1, h10:0, h11:0, h12:2, h13:2, h14:2, h18:2, h15:2, h16:2, h17:2, ex1:2, ex2:2, ex3:2, ex4:2, ex5:2, ex6:2 },
+      "2026-11-12": { h0:2, h1:1, h2:0, h3:1, h4:0, h5:0, h6:1, h7:1, h8:1, h9:0, h10:0, h11:0, h12:2, h13:2, h14:2, h18:2, h15:2, h16:2, h17:2, ex1:2, ex2:2, ex3:2, ex4:2, ex5:2, ex6:2 },
+      "2026-11-11": { h0:2, h1:0, h2:0, h3:0, h4:0, h5:0, h6:0, h7:1, h8:1, h9:0, h10:1, h11:0, h12:2, h13:2, h14:2, h18:2, h15:2, h16:2, h17:2, ex1:2, ex2:2, ex3:2, ex4:2, ex5:2, ex6:2 },
+      "2026-11-10": { h0:2, h1:0, h2:1, h3:0, h4:0, h5:1, h6:1, h7:1, h8:0, h9:0, h10:1, h11:1, h12:1, h13:2, h14:2, h18:2, h15:2, h16:2, h17:2, ex1:2, ex2:2, ex3:2, ex4:2, ex5:2, ex6:2 },
+      "2026-11-09": { h0:2, h1:0, h2:1, h3:0, h4:0, h5:0, h6:0, h7:0, h8:0, h9:0, h10:0, h11:0, h12:2, h13:2, h14:2, h18:2, h15:2, h16:2, h17:2, ex1:2, ex2:2, ex3:2, ex4:2, ex5:2, ex6:2 },
+      "2026-11-06": { h0:2, h1:0, h2:0, h3:0, h4:0, h5:0, h6:0, h7:1, h8:1, h9:1, h10:1, h11:0, h12:0, h13:2, h14:2, h18:2, h15:2, h16:2, h17:2, ex1:2, ex2:2, ex3:2, ex4:2, ex5:2, ex6:2 },
+      "2026-11-05": { h0:2, h1:0, h2:0, h3:0, h4:0, h5:1, h6:1, h7:1, h8:1, h9:0, h10:1, h11:0, h12:0, h13:2, h14:2, h18:2, h15:2, h16:2, h17:2, ex1:2, ex2:2, ex3:2, ex4:2, ex5:2, ex6:2 }
     }
-  }
-};
+  };
 
   const STORAGE_KEY = "cs_habit_consistency_live_v1";
   const THEME_KEY = "cs_habit_theme";
@@ -1753,7 +711,7 @@
     return new Date(y, m - 1, d);
   }
 
-  // Monday-based ISO week key (YYYY-Www) so weekly habits group cleanly per calendar week
+  // Monday-based ISO week key (YYYY-MM-DD of that week's Monday)
   function getWeekKey(isoStr) {
     const d = parseLocalDate(isoStr);
     const day = (d.getDay() + 6) % 7; // Mon = 0 .. Sun = 6
@@ -1766,24 +724,32 @@
     return isoStr.slice(0, 7);
   }
 
-  function isPreStartLocked(habit, dateIso) {
-    return habit.isNew && dateIso < NEW_HABITS_START;
+  function getHabitStartDate(habit) {
+    return habit.startDate || (habit.isNew ? NEW_HABITS_START : "2026-11-05");
   }
 
-  // Checks if a weekly or monthly habit has already been completed on another day in the same week/month
-  function isCompletedElsewhereInPeriod(habit, dateIso) {
-    if (habit.cadence === "weekly") {
+  function isPreStartLocked(habit, dateIso) {
+    return habit.isNew && dateIso < getHabitStartDate(habit);
+  }
+
+  function isExPreStartLocked(dateIso) {
+    return dateIso < EXERCISE_START;
+  }
+
+  // Checks if a weekly or monthly item has already been completed on another day in the same week/month
+  function isCompletedElsewhereInPeriod(item, dateIso) {
+    if (item.cadence === "weekly") {
       const targetWeek = getWeekKey(dateIso);
-      return state.dates.some(d => d !== dateIso && getWeekKey(d) === targetWeek && state.records[d]?.[habit.id] === 1);
+      return state.dates.some(d => d !== dateIso && getWeekKey(d) === targetWeek && state.records[d]?.[item.id] === 1);
     }
-    if (habit.cadence === "monthly") {
+    if (item.cadence === "monthly") {
       const targetMonth = getMonthKey(dateIso);
-      return state.dates.some(d => d !== dateIso && getMonthKey(d) === targetMonth && state.records[d]?.[habit.id] === 1);
+      return state.dates.some(d => d !== dateIso && getMonthKey(d) === targetMonth && state.records[d]?.[item.id] === 1);
     }
     return false;
   }
 
-  // Single source of truth for whether a cell is greyed out / invalid
+  // Single source of truth for whether a habit cell is greyed out / invalid
   function isCellGreyedOut(habit, dateIso) {
     if (isPreStartLocked(habit, dateIso)) return true;
     const v = state.records[dateIso]?.[habit.id] ?? 0;
@@ -1792,7 +758,7 @@
     return false;
   }
 
-  // Synchronizes weekly & monthly greyed-out states whenever a weekly/monthly box is toggled
+  // Synchronizes weekly & monthly greyed-out states for both Habits and Exercises
   function normalizePeriodicHabits() {
     HABITS.forEach(h => {
       if (h.cadence === "weekly" || h.cadence === "monthly") {
@@ -1804,12 +770,28 @@
           const cur = state.records[d][h.id] ?? 0;
           if (cur === 1) return;
           if (isCompletedElsewhereInPeriod(h, d)) {
-            state.records[d][h.id] = 2; // Grey out remaining boxes in the same week/month once done
+            state.records[d][h.id] = 2;
           } else if (cur === 2) {
-            state.records[d][h.id] = 0; // Re-enable if the completed box in that week/month was unticked
+            state.records[d][h.id] = 0;
           }
         });
       }
+    });
+
+    EXERCISES.forEach(ex => {
+      state.dates.forEach(d => {
+        if (isExPreStartLocked(d)) {
+          state.records[d][ex.id] = 2;
+          return;
+        }
+        const cur = state.records[d][ex.id] ?? 0;
+        if (cur === 1) return;
+        if (isCompletedElsewhereInPeriod(ex, d)) {
+          state.records[d][ex.id] = 2;
+        } else if (cur === 2) {
+          state.records[d][ex.id] = 0;
+        }
+      });
     });
   }
 
@@ -1824,16 +806,36 @@
             parsed.records[d] = JSON.parse(JSON.stringify(DEFAULT_DATA.records[d]));
           } else {
             HABITS.forEach(h => {
-              if (parsed.records[d][h.id] === undefined) {
+              if (parsed.records[d][h.id] === undefined || (parsed.records[d][h.id] === 0 && DEFAULT_DATA.records[d][h.id] !== 0)) {
                 parsed.records[d][h.id] = DEFAULT_DATA.records[d][h.id];
+              }
+            });
+            EXERCISES.forEach(ex => {
+              if (parsed.records[d][ex.id] === undefined || (parsed.records[d][ex.id] === 0 && DEFAULT_DATA.records[d][ex.id] !== 0)) {
+                parsed.records[d][ex.id] = DEFAULT_DATA.records[d][ex.id];
               }
             });
           }
         });
+
+        if (parsed.records["2026-11-20"] && parsed.records["2026-11-20"].ex1 === 2) {
+          EXERCISES.forEach(ex => {
+            parsed.records["2026-11-20"][ex.id] = DEFAULT_DATA.records["2026-11-20"][ex.id];
+          });
+        }
+        if (parsed.records["2026-11-23"] && parsed.records["2026-11-23"].ex2 === 0) {
+          parsed.records["2026-11-23"].ex2 = 1;
+        }
+
         parsed.dates.forEach(d => {
           HABITS.forEach(h => {
             if (parsed.records[d][h.id] === undefined) {
-              parsed.records[d][h.id] = (h.isNew && d < NEW_HABITS_START) ? 2 : 0;
+              parsed.records[d][h.id] = isPreStartLocked(h, d) ? 2 : 0;
+            }
+          });
+          EXERCISES.forEach(ex => {
+            if (parsed.records[d][ex.id] === undefined) {
+              parsed.records[d][ex.id] = (d < EXERCISE_START) ? 2 : 0;
             }
           });
         });
@@ -1913,6 +915,13 @@
           state.records[todayIso][h.id] = 0;
         }
       });
+      EXERCISES.forEach(ex => {
+        if (isExPreStartLocked(todayIso) || isCompletedElsewhereInPeriod(ex, todayIso)) {
+          state.records[todayIso][ex.id] = 2;
+        } else {
+          state.records[todayIso][ex.id] = 0;
+        }
+      });
       normalizePeriodicHabits();
       saveState(false);
     }
@@ -1928,9 +937,7 @@
     const cur = state.records[dateIso][habitId] || 0;
 
     if (habit.cadence === "weekly" || habit.cadence === "monthly") {
-      // If locked because another day in this week/month is already ✅, do nothing
       if (cur !== 1 && isCompletedElsewhereInPeriod(habit, dateIso)) return;
-      // Toggle between pending (0) and completed (1); normalizePeriodicHabits greys out remaining boxes
       state.records[dateIso][habitId] = (cur === 1) ? 0 : 1;
       normalizePeriodicHabits();
     } else {
@@ -1941,8 +948,25 @@
     renderAll();
   }
 
+  function toggleExerciseCell(dateIso, exId) {
+    const ex = EXERCISES.find(e => e.id === exId);
+    if (!ex) return;
+    if (isExPreStartLocked(dateIso)) return;
+
+    if (!state.records[dateIso]) state.records[dateIso] = {};
+    const cur = state.records[dateIso][exId] || 0;
+
+    if (cur !== 1 && isCompletedElsewhereInPeriod(ex, dateIso)) return;
+
+    state.records[dateIso][exId] = (cur === 1) ? 0 : 1;
+    normalizePeriodicHabits();
+
+    saveState(false);
+    renderAll();
+  }
+
   function resetData() {
-    if (confirm("Reset tracker back to the Nov 20 baseline? This clears local edits.")) {
+    if (confirm("Reset tracker back to the baseline? This clears local edits.")) {
       localStorage.removeItem(STORAGE_KEY);
       state = JSON.parse(JSON.stringify(DEFAULT_DATA));
       normalizePeriodicHabits();
@@ -1984,7 +1008,6 @@
     const todayRec = state.records[todayIso] || {};
     const dailyAnchors = HABITS.filter(h => h.pillar === "Daily Anchors");
 
-    // 1. Today's Progress KPI: measures ONLY valid Daily Anchors
     let todayDone = 0, todayValid = 0;
     dailyAnchors.forEach(h => {
       if (isCellGreyedOut(h, todayIso)) return;
@@ -1992,7 +1015,6 @@
       if ((todayRec[h.id] || 0) === 1) todayDone++;
     });
 
-    // 2. Overall Consistency %: measured ONLY across valid (non-greyed-out) boxes
     let totalDone = 0, totalValid = 0;
     let stepsDone = 0, stepsValid = 0;
     const stepsHabit = HABITS.find(h => h.id === "h7");
@@ -2012,7 +1034,6 @@
 
     const overallPct = totalValid ? Math.round((totalDone / totalValid) * 100) : 0;
 
-    // 3. Weekly Vitamin D status for current week
     const vitHabit = HABITS.find(h => h.id === "h12");
     const vitDoneThisWeek = vitHabit && (todayRec.h12 === 1 || isCompletedElsewhereInPeriod(vitHabit, todayIso));
     const vitD = vitDoneThisWeek ? "Done This Week" : "Pending This Week";
@@ -2066,13 +1087,12 @@
         const v = (state.records[d] && state.records[d][h.id]) || 0;
 
         if (preLocked || periodLocked) {
-          const tip = preLocked ? "Starts Nov 20, 2026" : `Already completed for this ${h.cadence === 'weekly' ? 'week' : 'month'}`;
+          const tip = preLocked ? `Starts ${formatShortDate(getHabitStartDate(h))}, 2026` : `Already completed for this ${h.cadence === 'weekly' ? 'week' : 'month'}`;
           return `<td class="${d === todayIso ? 'today-col' : ''}">
             <button class="toggle-btn locked" disabled title="${tip}">—</button>
           </td>`;
         }
 
-        // Only non-greyed-out boxes (0 or 1) count as valid boxes
         if (v !== 2) {
           valid++;
           if (v === 1) done++;
@@ -2098,11 +1118,59 @@
     tbody.innerHTML = rows.join("");
   }
 
+  function renderExerciseTable(todayIso) {
+    const thead = document.getElementById("exTableHead");
+    const tbody = document.getElementById("exTableBody");
+
+    thead.innerHTML = `<th>Exercise Routine</th>` +
+      state.dates.map(d => `<th class="${d === todayIso ? 'today-col' : ''}">${formatHeaderDate(d, todayIso)}</th>`).join("") +
+      `<th>This Week</th>`;
+
+    const currentWeek = getWeekKey(todayIso);
+
+    const rows = EXERCISES.map(ex => {
+      const doneThisWeek = state.dates.some(d => getWeekKey(d) === currentWeek && state.records[d]?.[ex.id] === 1);
+
+      const cells = state.dates.map(d => {
+        const preLocked = isExPreStartLocked(d);
+        const v = (state.records[d] && state.records[d][ex.id]) ?? 0;
+        const periodLocked = !preLocked && (v !== 1) && isCompletedElsewhereInPeriod(ex, d);
+
+        if (preLocked || periodLocked || v === 2) {
+          const tip = preLocked ? "Starts Nov 20, 2026" : "Completed for this week — remaining boxes greyed out";
+          return `<td class="${d === todayIso ? 'today-col' : ''}">
+            <button class="toggle-btn locked" disabled title="${tip}">—</button>
+          </td>`;
+        }
+
+        const sym = v === 1 ? "✅" : "⬜";
+        const cls = v === 1 ? "done" : "";
+        return `<td class="${d === todayIso ? 'today-col' : ''}">
+          <button class="toggle-btn ${cls}" onclick="toggleExerciseCell('${d}', '${ex.id}')" title="Click to mark workout complete">${sym}</button>
+        </td>`;
+      }).join("");
+
+      const statusBadge = doneThisWeek
+        ? `<span class="habit-rate-pill rate-high">Done ✓</span>`
+        : `<span class="habit-rate-pill rate-low">Open</span>`;
+
+      return `<tr>
+        <td>
+          <div class="ex-title">${ex.title}</div>
+          <div class="ex-sub">${ex.detail}</div>
+        </td>
+        ${cells}
+        <td>${statusBadge}</td>
+      </tr>`;
+    });
+
+    tbody.innerHTML = rows.join("");
+  }
+
   function renderCharts(todayIso) {
     const chronoDates = [...state.dates].reverse();
     const dailyAnchors = HABITS.filter(h => h.pillar === "Daily Anchors");
 
-    // 1. Completion Trend Chart: measures ONLY valid Daily Anchors
     const dailyHTML = chronoDates.map(d => {
       const rec = state.records[d] || {};
       let done = 0, valid = 0;
@@ -2125,7 +1193,6 @@
     }).join("");
     document.getElementById("dailyChart").innerHTML = dailyHTML;
 
-    // 2. Habit-by-Habit Consistency Chart: measures ONLY valid (non-greyed-out) boxes
     const habitHTML = HABITS.map(h => {
       let done = 0, valid = 0;
       state.dates.forEach(d => {
@@ -2153,6 +1220,7 @@
     renderKPIs(todayIso);
     renderTable(todayIso);
     renderCharts(todayIso);
+    renderExerciseTable(todayIso);
   }
 
   function updateClock() {
@@ -2179,6 +1247,5 @@
     if (!document.hidden) syncTodayColumn();
   });
 </script>
-
-
-</body></html>
+</body>
+</html>
